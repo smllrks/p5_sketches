@@ -20,8 +20,8 @@ function draw() {
   // Get the current amplitude level
   let level = amplitude.getLevel();
 
-  // Map the amplitude level to a size for the shapes
-  let size = map(level, 0, 1, 0, 400);
+  // Increase sensitivity by mapping to a larger range
+  let size = map(level, 0, 0.1, 0, 600);
 
   // Draw concentric circles
   stroke(255, 100, 150);
