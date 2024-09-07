@@ -1,44 +1,34 @@
-let amplitude;
-
 function setup() {
-  createCanvas(800, 600);
-  noFill();
+  createCanvas(800, 600, WEBGL);
   strokeWeight(2);
-
-  // Create an audio input and start it
-  let mic = new p5.AudioIn();
-  mic.start();
-
-  // Create an amplitude analyzer
-  amplitude = new p5.Amplitude();
-  amplitude.setInput(mic);
 }
 
 function draw() {
   background(0);
 
-  // Get the current amplitude level
-  let level = amplitude.getLevel();
+  // Set a fixed size for the cube
+  let size = 200;
 
-  // Map the amplitude level to a size for the shapes
-  let size = map(level, 0, 1, 0, 400);
+  // Draw a rotating 3D cube
+  stroke(255); // Monochrome white
+  noFill();
+  push();
+  rotateX(frameCount * 0.01);
+  rotateY(frameCount * 0.01);
+  box(size);
+  pop();
 
-  // Draw concentric circles
-  stroke(255, 100, 150);
-  ellipse(width / 2, height / 2, size, size);
-
-  // Draw rotating lines
-  stroke(150, 255, 100);
-  let angleStep = TWO_PI / 10;
-  for (let angle = 0; angle < TWO_PI; angle += angleStep) {
-    let x = width / 2 + cos(angle) * size;
-    let y = height / 2 + sin(angle) * size;
-    line(width / 2, height / 2, x, y);
+  // Draw a grid of lines to simulate depth
+  let gridSize = 20;
+  for (let x = -width / 2; x < width / 2; x += gridSize) {
+    for (let y = -height / 2; y < height / 2; y += gridSize) {
+      line(x, y, 0, x, y, -200);
+    }
   }
 
-  // Draw a bouncing rectangle
-  stroke(100, 150, 255);
-  let rectSize = size / 2;
+  // Draw a simple border
+  stroke(255);
+  noFill();
   rectMode(CENTER);
-  rect(width / 2, height / 2, rectSize, rectSize);
+  rect(0, 0, width - 20, height - 20);
 }
