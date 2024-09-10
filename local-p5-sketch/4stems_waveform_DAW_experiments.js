@@ -17,7 +17,7 @@ const socials = "@FourStems";
 
 function preload() {
   for (let i = 0; i < numStems; i++) {
-    stems.push(loadSound(`stem${i+1}.mp3`));
+    stems.push(loadSound(`Stem${i+1}.mp3`));
   }
 }
 
